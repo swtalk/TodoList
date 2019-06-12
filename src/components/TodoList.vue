@@ -2,7 +2,7 @@
   <section>
     <ul>
       <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.id" class="shodow">
-        <i class="checkBtn fa fa-check" aria-hidden="true"></i>
+        <i class="checkBtn fa fa-check" aria-hidden="true" @click="testTodo()"></i>
         {{ todoItem }}
         <span class="removeBtn" type="button" @click="removeTodo(todoItem, index)">
           <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -22,6 +22,9 @@ export default {
   methods: {
     removeTodo() {
       console.log("clicked");
+    },
+    testTodo() {
+      console.log("testViewrain");
     }
   },
   created() {
