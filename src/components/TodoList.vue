@@ -1,42 +1,31 @@
 <template>
   <section>
-    <ul>
-      <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.id" class="shodow">
+    <transition-group name="list" tag="ul">
+      <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem" class="shodow">
         <i class="checkBtn fa fa-check" aria-hidden="true" @click="testTodo()"></i>
         {{ todoItem }}
+        {{ index }}
         <span class="removeBtn" type="button" @click="removeTodo(todoItem, index)">
           <i class="fa fa-trash-o" aria-hidden="true"></i>
         </span>
       </li>
-    </ul>
+    </transition-group>
   </section>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      todoItems: []
-    };
-  },
+  props: ["propsdata"],
   methods: {
-    removeTodo() {
-      console.log("clicked");
-    },
-    testTodo() {
-      console.log("testViewrain");
-    }
-  },
-  created() {
-    if (localStorage.length > 0) {
-      for (var i = 0; i < localStorage.length; i++) {
-        this.todoItems.push(localStorage.key(i));
-      }
+    removeTodo(todoItem, index) {
+      this.$emit("removeTodo", todoItem, index);
     }
   }
 };
 </script>
-<style scoped>
+
+
+<style scope>
 ul {
   list-style-type: none;
   padding-left: 0px;
@@ -53,6 +42,14 @@ li {
   background: white;
   border-radius: 5px;
 }
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-move {
+  transition: transform 1s;
+}
+
 .checkBtn {
   line-height: 45px;
   color: #62acde;
